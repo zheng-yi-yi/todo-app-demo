@@ -1,27 +1,57 @@
+/* Light theme (default) */
+:root {
+    --bg-page: #f7f9fc;
+    --bg-card: #ffffff;
+    --text-heading: #333333;
+    --text-body: #444444;
+    --border-color: #dddddd;
+    --border-light: #eeeeee;
+    --hover-bg: #fafafa;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --input-bg: #ffffff;
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+    --bg-page: #1a1a2e;
+    --bg-card: #16213e;
+    --text-heading: #e0e0e0;
+    --text-body: #c0c0c0;
+    --border-color: #444444;
+    --border-light: #2a2a4a;
+    --hover-bg: #1e2a4a;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --input-bg: #0f3460;
+}
+
 body {
     font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background-color: #f7f9fc;
+    background-color: var(--bg-page);
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
     margin: 0;
     padding-top: 50px;
+    transition: background-color 0.3s;
 }
 
 .container {
-    background-color: white;
+    background-color: var(--bg-card);
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px var(--shadow);
     width: 100%;
     max-width: 400px;
+    position: relative;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: var(--text-heading);
     margin-bottom: 20px;
+    transition: color 0.3s;
 }
 
 .input-group {
@@ -33,10 +63,12 @@ h1 {
 #todoInput {
     flex-grow: 1;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     outline: none;
-    transition: border-color 0.2s;
+    background-color: var(--input-bg);
+    color: var(--text-body);
+    transition: border-color 0.2s, background-color 0.3s, color 0.3s;
 }
 
 #todoInput:focus {
@@ -67,7 +99,7 @@ li {
     justify-content: space-between;
     align-items: center;
     padding: 12px 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-light);
     transition: background-color 0.1s;
 }
 
@@ -76,7 +108,7 @@ li:last-child {
 }
 
 li:hover {
-    background-color: #fafafa;
+    background-color: var(--hover-bg);
 }
 
 .delete-btn {
@@ -96,5 +128,26 @@ li:hover {
 
 .todo-text {
     flex-grow: 1;
-    color: #444;
+    color: var(--text-body);
+    transition: color 0.3s;
+}
+
+/* Theme toggle button */
+#themeToggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text-heading);
+    transition: border-color 0.3s, color 0.3s;
+    line-height: 1.4;
+}
+
+#themeToggle:hover {
+    border-color: #007bff;
 }

@@ -1,7 +1,32 @@
+// Apply saved theme immediately to avoid flash of wrong theme
+(function() {
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     const todoInput = document.getElementById('todoInput');
     const addBtn = document.getElementById('addBtn');
     const todoList = document.getElementById('todoList');
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Sync toggle button icon with current theme
+    function updateToggleIcon() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+    }
+
+    // Init icon on load
+    updateToggleIcon();
+
+    // Toggle between light and dark
+    themeToggle.onclick = () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateToggleIcon();
+    };
 
     // 添加新任务的功能
     function addTodo() {
