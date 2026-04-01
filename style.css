@@ -1,59 +1,219 @@
-/* Light theme (default) */
+/* ─── Design tokens ────────────────────────────────────────────── */
 :root {
-    --bg-page: #f7f9fc;
+    /* page */
+    --bg-page: #eef2ff;
+    /* card */
     --bg-card: #ffffff;
-    --text-heading: #333333;
-    --text-body: #444444;
-    --border-color: #dddddd;
-    --border-light: #eeeeee;
-    --hover-bg: #fafafa;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --input-bg: #ffffff;
+    --card-border: rgba(99, 102, 241, 0.12);
+    --shadow-card: 0 20px 60px rgba(99, 102, 241, 0.14);
+    /* header gradient */
+    --grad-start: #6366f1;
+    --grad-end:   #8b5cf6;
+    /* text */
+    --text-on-grad: #ffffff;
+    --text-heading: #1e1b4b;
+    --text-body:    #4b5563;
+    --text-muted:   #9ca3af;
+    /* input */
+    --input-bg:     #f8fafc;
+    --input-border: #e2e8f0;
+    --input-focus:  #6366f1;
+    /* list item */
+    --item-hover:   #f5f3ff;
+    --item-border:  #f1f5f9;
+    /* checkbox */
+    --check-border: #d1d5db;
+    --check-active: #6366f1;
+    /* delete */
+    --delete-color:   #f43f5e;
+    --delete-hover:   #e11d48;
+    /* progress */
+    --progress-bg:    rgba(255,255,255,.3);
+    --progress-fill:  #ffffff;
+    /* stat */
+    --stat-num: #ffffff;
+    --stat-label: rgba(255,255,255,.75);
+    --stat-divider: rgba(255,255,255,.25);
+    /* transitions */
+    --t-theme: 0.35s ease;
 }
 
-/* Dark theme overrides */
 [data-theme="dark"] {
-    --bg-page: #1a1a2e;
-    --bg-card: #16213e;
-    --text-heading: #e0e0e0;
-    --text-body: #c0c0c0;
-    --border-color: #444444;
-    --border-light: #2a2a4a;
-    --hover-bg: #1e2a4a;
-    --shadow: rgba(0, 0, 0, 0.4);
-    --input-bg: #0f3460;
+    --bg-page: #0f0e17;
+    --bg-card: #1c1b2e;
+    --card-border: rgba(139, 92, 246, 0.2);
+    --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.45);
+    --grad-start: #4f46e5;
+    --grad-end:   #7c3aed;
+    --text-heading: #e0e7ff;
+    --text-body:    #c7d2fe;
+    --text-muted:   #6b7280;
+    --input-bg:     #13122b;
+    --input-border: #312e81;
+    --input-focus:  #818cf8;
+    --item-hover:   #1e1b38;
+    --item-border:  #23224a;
+    --check-border: #4b5563;
+    --check-active: #818cf8;
+    --delete-color:   #fb7185;
+    --delete-hover:   #f43f5e;
+    --progress-bg:    rgba(255,255,255,.15);
+    --progress-fill:  #ffffff;
 }
+
+/* ─── Reset / base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background-color: var(--bg-page);
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-page);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    padding-top: 50px;
-    transition: background-color 0.3s;
+    padding: 48px 16px 80px;
+    transition: background var(--t-theme);
 }
 
+/* ─── Card ─────────────────────────────────────────────────────── */
 .container {
-    background-color: var(--bg-card);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px var(--shadow);
     width: 100%;
-    max-width: 400px;
-    position: relative;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    max-width: 480px;
+    background: var(--bg-card);
+    border-radius: 24px;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    animation: slideDown 0.5s cubic-bezier(.22,.68,0,1.2) both;
+    transition: background var(--t-theme), border-color var(--t-theme), box-shadow var(--t-theme);
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Header ───────────────────────────────────────────────────── */
+.card-header {
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    padding: 24px 24px 20px;
+    transition: background var(--t-theme);
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
 }
 
 h1 {
-    text-align: center;
-    color: var(--text-heading);
-    margin-bottom: 20px;
-    transition: color 0.3s;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-on-grad);
+    letter-spacing: 0.01em;
 }
 
+/* Theme toggle */
+#themeToggle {
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 50px;
+    padding: 6px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #fff;
+    line-height: 1.4;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    flex-shrink: 0;
+}
+
+#themeToggle:hover {
+    background: rgba(255,255,255,.28);
+    transform: scale(1.08);
+}
+
+/* Stats row */
+.stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 16px;
+}
+
+.stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.stat-num {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--stat-num);
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.stat-num.bump {
+    animation: bump 0.3s ease;
+}
+
+@keyframes bump {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.25); }
+    100% { transform: scale(1); }
+}
+
+.stat-label {
+    font-size: 0.72rem;
+    color: var(--stat-label);
+    letter-spacing: 0.04em;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--stat-divider);
+    flex-shrink: 0;
+}
+
+/* Progress bar */
+.progress-bar-wrap {
+    height: 6px;
+    background: var(--progress-bg);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--progress-fill);
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── Card body ─────────────────────────────────────────────────── */
+.card-body {
+    padding: 20px 20px 24px;
+}
+
+/* ─── Input group ───────────────────────────────────────────────── */
 .input-group {
     display: flex;
     gap: 10px;
@@ -62,92 +222,205 @@ h1 {
 
 #todoInput {
     flex-grow: 1;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--input-border);
+    border-radius: 12px;
     outline: none;
-    background-color: var(--input-bg);
+    font-size: 0.95rem;
+    background: var(--input-bg);
     color: var(--text-body);
-    transition: border-color 0.2s, background-color 0.3s, color 0.3s;
+    transition: border-color 0.2s, box-shadow 0.2s, background var(--t-theme), color var(--t-theme);
 }
 
+#todoInput::placeholder { color: var(--text-muted); }
+
 #todoInput:focus {
-    border-color: #007bff;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(99,102,241,.15);
 }
 
 #addBtn {
-    padding: 10px 18px;
-    background-color: #007bff;
-    color: white;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+    color: #fff;
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(99,102,241,.35);
 }
+
+#addBtn svg { width: 20px; height: 20px; }
 
 #addBtn:hover {
-    background-color: #0056b3;
+    opacity: .9;
+    transform: scale(1.06);
+    box-shadow: 0 6px 18px rgba(99,102,241,.45);
 }
 
+#addBtn:active { transform: scale(.97); }
+
+/* ─── List ──────────────────────────────────────────────────────── */
 ul {
     list-style: none;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 li {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 10px;
-    border-bottom: 1px solid var(--border-light);
-    transition: background-color 0.1s;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--item-border);
+    background: transparent;
+    max-height: 80px;
+    overflow: hidden;
+    animation: itemIn 0.35s cubic-bezier(.22,.68,0,1.2) both;
+    transition: background 0.15s, border-color var(--t-theme), max-height 0.3s ease;
 }
 
-li:last-child {
-    border-bottom: none;
+@keyframes itemIn {
+    from { opacity: 0; transform: translateX(-16px) scale(.97); }
+    to   { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-li:hover {
-    background-color: var(--hover-bg);
+li.removing {
+    animation: itemOut 0.3s ease forwards;
 }
 
-.delete-btn {
-    background-color: #ff4d4f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
+@keyframes itemOut {
+    to { opacity: 0; transform: translateX(16px) scale(.95); max-height: 0; padding: 0; margin: 0; }
+}
+
+li:hover { background: var(--item-hover); }
+
+/* Checkbox */
+.todo-check {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border: 2px solid var(--check-border);
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    background: transparent;
 }
 
-.delete-btn:hover {
-    background-color: #d9363e;
+.todo-check:hover { transform: scale(1.1); }
+
+.todo-check.checked {
+    background: var(--check-active);
+    border-color: var(--check-active);
 }
 
+.todo-check.checked::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translateY(-1px);
+}
+
+/* Todo text */
 .todo-text {
     flex-grow: 1;
+    font-size: 0.95rem;
     color: var(--text-body);
-    transition: color 0.3s;
+    transition: color 0.25s, text-decoration 0.25s;
+    word-break: break-all;
 }
 
-/* Theme toggle button */
-#themeToggle {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 1rem;
+.todo-text.done {
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+/* Delete button */
+.delete-btn {
+    flex-shrink: 0;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    color: var(--text-heading);
-    transition: border-color 0.3s, color 0.3s;
-    line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1;
+    transition: color 0.2s, background 0.2s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
 }
 
-#themeToggle:hover {
-    border-color: #007bff;
+li:hover .delete-btn { opacity: 1; }
+
+.delete-btn:hover {
+    color: var(--delete-hover);
+    background: rgba(244, 63, 94, .1);
+    transform: scale(1.1);
 }
+
+.delete-btn svg { width: 16px; height: 16px; pointer-events: none; }
+
+/* ─── Empty state ────────────────────────────────────────────────── */
+.empty-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 0 8px;
+    gap: 6px;
+}
+
+.empty-state.visible { display: flex; }
+
+.empty-icon {
+    font-size: 2.6rem;
+    animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+}
+
+.empty-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    transition: color var(--t-theme);
+}
+
+.empty-sub {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+}
+
+/* ─── Shake (empty input feedback) ─────────────────────────────── */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+}
+
+#todoInput.shake {
+    animation: shake 0.4s ease;
+    border-color: var(--delete-color) !important;
+}
+
