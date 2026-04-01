@@ -8,13 +8,51 @@
 </head>
 <body>
     <div class="container">
-        <button id="themeToggle" title="切换主题">🌙</button>
-        <h1>我的待办事项</h1>
-        <div class="input-group">
-            <input type="text" id="todoInput" placeholder="输入新的待办事项...">
-            <button id="addBtn">添加</button>
+        <div class="card-header">
+            <div class="header-top">
+                <div class="header-title">
+                    <div class="header-icon">✅</div>
+                    <h1>我的待办事项</h1>
+                </div>
+                <button id="themeToggle" title="切换主题">🌙</button>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-num" id="totalCount">0</span>
+                    <span class="stat-label">全部</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num" id="doneCount">0</span>
+                    <span class="stat-label">已完成</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-num" id="pendingCount">0</span>
+                    <span class="stat-label">待完成</span>
+                </div>
+            </div>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
         </div>
-        <ul id="todoList"></ul>
+
+        <div class="card-body">
+            <div class="input-group">
+                <input type="text" id="todoInput" placeholder="输入新的待办事项，按回车添加…">
+                <button id="addBtn" title="添加">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+            </div>
+
+            <ul id="todoList"></ul>
+
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">🎉</div>
+                <p class="empty-title">太棒了，暂无待办！</p>
+                <p class="empty-sub">添加一条新任务开始吧</p>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
